@@ -2,7 +2,7 @@
   <div id="calculator">
     <form>
       <!-- <input type="text" id="display" enabled /><br /> -->
-      <p>{{display}}</p>
+      <p>{{ display }}</p>
       <br />
       <input type="button" value="7" id="keys" @click="handleClick(7)" />
       <input type="button" value="8" id="keys" @click="handleClick(8)" />
@@ -33,7 +33,7 @@
       /><br />
       <input type="button" value="0" id="keys" @click="handleClick(0)" />
       <input type="button" value="=" id="equal" @click="handleClick('=')" />
-      <input type="button" value="+" id="keys" @click="handleClick('.')" />
+      <input type="button" value="+" id="keys" @click="handleClick('+')" />
     </form>
   </div>
 </template>
@@ -41,17 +41,106 @@
 <script lang="ts">
 import Vue from "vue";
 
+enum State {
+  INIT,
+  FIRSTFIGURE,
+  SECONDFIGURE,
+  RESULT,
+}
+
 export default Vue.extend({
   name: "HelloWorld",
   data() {
     return {
-      display: '',
+      display: "",
+      result: 0,
+      operator: "",
+      firstNumber: 0,
+      secondNumber: 0,
+      currentState: State.INIT,
     };
   },
   methods: {
-    handleClick(value: any) {
+    handleClick(value: string | number) {
       // boolean to string
-      this.display += value;
+      if (typeof value === "string") {
+        this.handleSymbol(value);
+      } else if (typeof value === "number") {
+        this.handleNumber(value);
+      }
+    },
+    handleNumber(value: number) {
+      switch (this.currentState) {
+        case State.INIT:
+          this.firstNumber = value;
+          this.currentState = State.FIRSTFIGURE;
+          this.display += value;
+          break;
+        case State.FIRSTFIGURE:
+          this.firstNumber = this.firstNumber * 10 + value;
+          this.display += value;
+          break;
+        case State.SECONDFIGURE:
+          this.secondNumber = this.secondNumber * 10 + value;
+          this.display += value;
+          break;
+        case State.RESULT:
+          this.firstNumber = value;
+          this.secondNumber = 0;
+          this.operator = '';
+          this.result = 0;
+          this.currentState = State.FIRSTFIGURE;
+          this.display = value.toString();
+          break;
+        default:
+          break;
+      }
+    },
+    calculate(): number {
+      switch (this.operator) {
+        case "+":
+          return this.firstNumber + this.secondNumber;
+        case "-":
+          return this.firstNumber - this.secondNumber;
+        case "*":
+          return this.firstNumber * this.secondNumber;
+        case "/":
+          return this.firstNumber / this.secondNumber;
+        default:
+          return 0;
+      }
+    },
+    handleSymbol(value: string) {
+      switch (this.currentState) {
+        case State.INIT:
+          break;
+        case State.FIRSTFIGURE:
+          if(value === '+' || value === '-' || value === '*' || value === '/') {
+            this.operator = value;
+            this.currentState = State.SECONDFIGURE;
+            this.display += value;
+          } 
+          break;
+        case State.SECONDFIGURE:
+          if(value === '=') {
+            this.result = this.calculate();
+            this.currentState = State.RESULT;
+            this.display += value + this.result;
+          }
+          break;
+        case State.RESULT:
+          if(value === '+' || value === '-' || value === '*' || value === '/') {
+            this.firstNumber = this.result;
+            this.secondNumber = 0;
+            this.operator = value;
+            this.result = 0;
+            this.currentState = State.SECONDFIGURE;
+            this.display = this.firstNumber + value;
+          }
+          break;
+        default:
+          break;
+      }
     },
   },
 });
