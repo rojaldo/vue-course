@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <HelloWorld></HelloWorld>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import HelloWorld from './components/HelloWorld.vue';
+
+export default Vue.extend({
+  components: {
+    HelloWorld,
+  },
+});
+</script>
 
 <style>
 #app {
