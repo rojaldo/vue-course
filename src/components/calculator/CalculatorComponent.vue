@@ -1,7 +1,7 @@
 <template>
   <div id="calculator">
     <form>
-      <input type="text" id="display" :value="display" disabled /><br />
+      <input type="text" id="display" :value="display" disabled/><br />
       <br />
       <input type="button" value="7" id="keys" @click="handleClick(7)" />
       <input type="button" value="8" id="keys" @click="handleClick(8)" />
