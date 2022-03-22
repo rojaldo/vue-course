@@ -1,8 +1,7 @@
 <template>
   <div id="calculator">
     <form>
-      <!-- <input type="text" id="display" enabled /><br /> -->
-      <p>{{ display }}</p>
+      <input type="text" id="display" :value="display" enabled /><br />
       <br />
       <input type="button" value="7" id="keys" @click="handleClick(7)" />
       <input type="button" value="8" id="keys" @click="handleClick(8)" />
@@ -49,7 +48,7 @@ enum State {
 }
 
 export default Vue.extend({
-  name: "HelloWorld",
+  name: 'CalculatorComponent',
   data() {
     return {
       display: "",

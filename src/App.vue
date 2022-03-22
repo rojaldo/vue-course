@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld></HelloWorld>
+    <CalculatorComponent></CalculatorComponent>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import CalculatorComponent from './components/calculator/CalculatorComponent.vue';
 
 export default Vue.extend({
   components: {
-    HelloWorld,
+    CalculatorComponent,
   },
 });
 </script>
