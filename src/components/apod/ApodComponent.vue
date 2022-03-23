@@ -1,6 +1,17 @@
 <template>
     <div class="container">
-        {{apod}}
+        <div class="jumbotron">
+            <h1 class="display-3">{{apod.title}}</h1>
+            <p class="lead">{{apod.date}}</p>
+            <div class="container-fluid d-flex">
+                <img class="mx-auto" :src="apod.url" :alt="apod.title">
+            </div>
+            <hr class="my-2">
+            <p>{{apod.explanation}}</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
+            </p>
+        </div>
     </div>
 </template>
 
