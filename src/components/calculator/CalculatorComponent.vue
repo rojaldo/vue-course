@@ -1,7 +1,8 @@
 <template>
   <div id="calculator">
     <form>
-      <display-component :inputDisplay="display"></display-component>
+      
+      <display-component :input-display="display"></display-component>
       <br />
       <keyboard-component @on-click="handleClick($event)"></keyboard-component>
     </form>

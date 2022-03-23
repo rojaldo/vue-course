@@ -1,16 +1,21 @@
 <template>
-  <div id="app">
-    <calculator-component></calculator-component>
+  <div>
+    <b-tabs content-class="mt-3">
+      <b-tab title="Calculator"><calculator-component></calculator-component></b-tab>
+      <b-tab title="Heroes" active><heroes-component></heroes-component></b-tab>
+    </b-tabs>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import CalculatorComponent from './components/calculator/CalculatorComponent.vue';
+import Vue from "vue";
+import CalculatorComponent from "./components/calculator/CalculatorComponent.vue";
+import HeroesComponent from "./components/heroes/HeroesComponent.vue";
 
 export default Vue.extend({
   components: {
     CalculatorComponent,
+    HeroesComponent,
   },
 });
 </script>
