@@ -3,7 +3,7 @@
     <b-tabs content-class="mt-3">
       <b-tab title="Calculator"><calculator-component></calculator-component></b-tab>
       <b-tab title="Heroes"><heroes-component></heroes-component></b-tab>
-      <b-tab title="Heroes" active><apod-component></apod-component></b-tab>
+      <b-tab title="Apod" active><apod-component></apod-component></b-tab>
     </b-tabs>
   </div>
 </template>
