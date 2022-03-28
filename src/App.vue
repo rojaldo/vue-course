@@ -3,7 +3,8 @@
     <b-tabs content-class="mt-3">
       <b-tab title="Calculator"><calculator-component></calculator-component></b-tab>
       <b-tab title="Heroes"><heroes-component></heroes-component></b-tab>
-      <b-tab title="Apod" active><apod-component></apod-component></b-tab>
+      <b-tab title="Apod"><apod-component></apod-component></b-tab>
+      <b-tab title="Beers" active><beers-component></beers-component></b-tab>
     </b-tabs>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script lang="ts">
 import Vue from "vue";
 import ApodComponent from "./components/apod/ApodComponent.vue";
+import BeersComponent from "./components/beers/BeersComponent.vue";
 import CalculatorComponent from "./components/calculator/CalculatorComponent.vue";
 import HeroesComponent from "./components/heroes/HeroesComponent.vue";
 
@@ -19,11 +21,13 @@ export default Vue.extend({
     CalculatorComponent,
     HeroesComponent,
     ApodComponent,
+    BeersComponent,
   },
 });
 </script>
 
-<style>
+<styl,
+    BeersComponente>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
