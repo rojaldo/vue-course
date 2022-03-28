@@ -1,40 +1,36 @@
 <template>
   <div class="container">
-      <vue-slider v-model="range"></vue-slider>
-    <div class="row">
-      <div class="col-xs-12 col-md-6 col-lg-4 col-xl-3 mb-3" v-for="(beer, index) in beersInRange" :key="index">
-        <div class="card h-100">
-          <img class="card-img-top mx-auto mt-2" :src="beer.imageUrl" :alt="beer.name" style="width: 60px"/>
-          <div class="card-body">
-            <h4 class="card-title">{{beer.name}}</h4>
-            <p class="card-text">{{beer.tagline}}</p>
-            <p class="card-text">{{beer.abv}}%</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <slider-beers-component
+      @range-changed="onRangeChange($event)"
+    ></slider-beers-component>
+    <list-beers-component :beers="beersInRange"></list-beers-component>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Beer from "../../models/Beer";
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/default.css'
+
+import ListBeersComponent from "./ListBeersComponent.vue";
+import SliderBeersComponent from "./SliderBeersComponent.vue";
 
 export default Vue.extend({
   name: "BeersComponent",
-  components: { VueSlider },
+  components: { ListBeersComponent, SliderBeersComponent },
   data() {
     return {
       beers: new Array<Beer>(),
-        range: [0,5],
+      range: [0, 5],
     };
   },
   computed: {
     beersInRange(): Array<Beer> {
-      return this.beers.filter(beer => beer.abv >= this.range[0] && beer.abv <= this.range[1]).sort((a, b) => a.abv - b.abv);
-    }
+      return this.beers
+        .filter(
+          (beer) => beer.abv >= this.range[0] && beer.abv <= this.range[1]
+        )
+        .sort((a, b) => a.abv - b.abv);
+    },
   },
   mounted() {
     this.getBeers();
@@ -48,6 +44,9 @@ export default Vue.extend({
             this.beers.push(new Beer(json));
           }
         });
+    },
+    onRangeChange(value: Array<number>) {
+      this.range = value;
     },
   },
 });
