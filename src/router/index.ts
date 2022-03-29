@@ -1,27 +1,48 @@
-// import Vue from 'vue'
-// import VueRouter, { RouteConfig } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
+import Vue from 'vue'
+import VueRouter, { RouteConfig } from 'vue-router'
+import BeersComponent from '../components/beers/BeersComponent.vue'
+import BeersContainer from '../components/beers/BeersContainer.vue'
 
-// Vue.use(VueRouter)
 
-// const routes: Array<RouteConfig> = [
-//   {
-//     path: '/',
-//     name: 'home',
-//     component: HomeView
-//   },
-//   {
-//     path: '/about',
-//     name: 'about',
-//     // route level code-splitting
-//     // this generates a separate chunk (about.[hash].js) for this route
-//     // which is lazy-loaded when the route is visited.
-//     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-//   }
-// ]
+Vue.use(VueRouter)
 
-// const router = new VueRouter({
-//   routes
-// })
+const routes: Array<RouteConfig> = [
+    { path: '/', redirect: '/beers' },
+    {
+        path: '/beers',
+        name: 'beers',
+        component: BeersContainer
+    },
+    {
+        path: '/calculator',
+        name: 'calculator',
+        component: () => import(/* webpackChunkName: "about" */ '../components/calculator/CalculatorComponent.vue'),
 
-// export default router
+    },
+    {
+        path: '/heroes',
+        name: 'heroes',
+        component: () => import(/* webpackChunkName: "about" */ '../components/heroes/HeroesComponent.vue')
+    },
+    {
+        path: '/apod',
+        name: 'apod',
+        component: () => import(/* webpackChunkName: "about" */ '../components/apod/ApodComponent.vue')
+    },
+    {
+        path: "/error",
+        name: "error",
+        component: () => import(/* webpackChunkName: "about" */ '../components/error/ErrorComponent.vue')
+    },
+    {
+        path: "/:pathMatch(.*)*", 
+        name: "not-found",
+        component: () => import(/* webpackChunkName: "NotPageFound" */ "../components/error/ErrorComponent.vue")
+    }
+]
+
+const router = new VueRouter({
+    routes
+})
+
+export default router

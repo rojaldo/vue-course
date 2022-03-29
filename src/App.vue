@@ -1,33 +1,16 @@
 <template>
-  <div>
-    <b-tabs content-class="mt-3">
-      <b-tab title="Calculator"><calculator-component></calculator-component></b-tab>
-      <b-tab title="Heroes"><heroes-component></heroes-component></b-tab>
-      <b-tab title="Apod"><apod-component></apod-component></b-tab>
-      <b-tab title="Beers" active><beers-component></beers-component></b-tab>
-    </b-tabs>
+  <div id="app">
+    <nav>
+      <router-link to="/">Beers</router-link> |
+      <router-link to="/calculator">Calculator</router-link> |
+      <router-link to="/heroes">Heroes</router-link> |
+      <router-link to="/apod">Apod</router-link> 
+    </nav>
+    <router-view/>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import ApodComponent from "./components/apod/ApodComponent.vue";
-import BeersComponent from "./components/beers/BeersComponent.vue";
-import CalculatorComponent from "./components/calculator/CalculatorComponent.vue";
-import HeroesComponent from "./components/heroes/HeroesComponent.vue";
-
-export default Vue.extend({
-  components: {
-    CalculatorComponent,
-    HeroesComponent,
-    ApodComponent,
-    BeersComponent,
-  },
-});
-</script>
-
-<styl,
-    BeersComponente>
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

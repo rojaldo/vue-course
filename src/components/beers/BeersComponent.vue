@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <slider-beers-component
-      @range-changed="onRangeChange($event)"
+      @range-changed="onRangeChange($event)" :propsRange="myRange"
     ></slider-beers-component>
     <list-beers-component :beers="beersInRange"></list-beers-component>
   </div>
@@ -20,8 +20,13 @@ export default Vue.extend({
   data() {
     return {
       beers: new Array<Beer>(),
-      range: [0, 5],
+      range: this.$props.myRange,
     };
+  },
+  props: {
+    myRange: {
+      type: Array,
+    },
   },
   computed: {
     beersInRange(): Array<Beer> {
@@ -32,8 +37,10 @@ export default Vue.extend({
         .sort((a, b) => a.abv - b.abv);
     },
   },
-  mounted() {
+  created() {
     this.getBeers();
+    console.log('Props myRange: ' + this.$props.myRange);
+    this.range = this.$props.myRange;
   },
   methods: {
     getBeers() {
@@ -47,10 +54,13 @@ export default Vue.extend({
     },
     onRangeChange(value: Array<number>) {
       this.range = value;
+      this.$emit("range-changed", value);
     },
   },
+
 });
 </script>
 
 <style scoped>
 </style>
+

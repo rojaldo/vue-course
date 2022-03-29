@@ -17,10 +17,19 @@ export default Vue.extend({
       range: [0, 5],
     };
   },
+  props: {
+    propsRange: {
+      type: Array,
+    },
+  },
   watch: {
     range(value: Array<number>) {
       console.log(value);
       this.$emit("range-changed", value);
+    },
+    propsRange(value: Array<number>) {
+      console.log(value);
+      this.range = value;
     },
   },
 });
