@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/calculator',
         name: 'calculator',
-        component: () => import(/* webpackChunkName: "about" */ '../components/calculator/CalculatorComponent.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../components/calculator/CalculatorContainer.vue'),
 
     },
     {

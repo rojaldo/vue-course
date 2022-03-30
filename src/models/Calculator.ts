@@ -1,4 +1,4 @@
-enum State {
+export enum CalculatorState {
     INIT,
     FIRSTFIGURE,
     SECONDFIGURE,
@@ -10,7 +10,7 @@ export class Calculator {
     operator = "";
     firstNumber = 0;
     secondNumber = 0;
-    currentState = State.INIT;
+    currentState = CalculatorState.INIT;
     display = '';
 
     constructor() {
@@ -18,25 +18,25 @@ export class Calculator {
 
     handleNumber(value: number): string {
         switch (this.currentState) {
-          case State.INIT:
+          case CalculatorState.INIT:
             this.firstNumber = value;
-            this.currentState = State.FIRSTFIGURE;
+            this.currentState = CalculatorState.FIRSTFIGURE;
             this.display += value;
             break;
-          case State.FIRSTFIGURE:
+          case CalculatorState.FIRSTFIGURE:
             this.firstNumber = this.firstNumber * 10 + value;
             this.display += value;
             break;
-          case State.SECONDFIGURE:
+          case CalculatorState.SECONDFIGURE:
             this.secondNumber = this.secondNumber * 10 + value;
             this.display += value;
             break;
-          case State.RESULT:
+          case CalculatorState.RESULT:
             this.firstNumber = value;
             this.secondNumber = 0;
             this.operator = '';
             this.result = 0;
-            this.currentState = State.FIRSTFIGURE;
+            this.currentState = CalculatorState.FIRSTFIGURE;
             this.display = value.toString();
             break;
           default:
@@ -62,29 +62,29 @@ export class Calculator {
 
       handleSymbol(value: string): string {
         switch (this.currentState) {
-          case State.INIT:
+          case CalculatorState.INIT:
             break;
-          case State.FIRSTFIGURE:
+          case CalculatorState.FIRSTFIGURE:
             if(value === '+' || value === '-' || value === '*' || value === '/') {
               this.operator = value;
-              this.currentState = State.SECONDFIGURE;
+              this.currentState = CalculatorState.SECONDFIGURE;
               this.display += value;
             } 
             break;
-          case State.SECONDFIGURE:
+          case CalculatorState.SECONDFIGURE:
             if(value === '=') {
               this.result = this.calculate();
-              this.currentState = State.RESULT;
+              this.currentState = CalculatorState.RESULT;
               this.display += value + this.result;
             }
             break;
-          case State.RESULT:
+          case CalculatorState.RESULT:
             if(value === '+' || value === '-' || value === '*' || value === '/') {
               this.firstNumber = this.result;
               this.secondNumber = 0;
               this.operator = value;
               this.result = 0;
-              this.currentState = State.SECONDFIGURE;
+              this.currentState = CalculatorState.SECONDFIGURE;
               this.display = this.firstNumber + value;
             }
             break;
@@ -92,5 +92,25 @@ export class Calculator {
             break;
         }
         return this.display;
+      }
+
+      setData(data: any): void {
+        this.display = data.display;
+        this.firstNumber = data.firstNumber;
+        this.secondNumber = data.secondNumber;
+        this.operator = data.operator;
+        this.result = data.result;
+        this.currentState = data.currentState;
+      }
+
+      getData(): any {
+        return {
+          display: this.display,
+          firstNumber: this.firstNumber,
+          secondNumber: this.secondNumber,
+          operator: this.operator,
+          result: this.result,
+          currentState: this.currentState
+        }
       }
 }

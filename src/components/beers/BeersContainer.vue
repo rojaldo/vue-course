@@ -1,10 +1,9 @@
 <template>
-  <beers-component :myRange="myRange" @range-changed="handleChange($event)"></beers-component>
+  <beers-component :myRange="myRange" :propsBeers="beers" @range-changed="handleChange($event)"></beers-component>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Wrapper } from "@/store/util";
 import {
   mappedGetters,
   mappedActions,
@@ -23,17 +22,21 @@ export default Vue.extend({
       ...mappedState,
       ...mappedGetters,
       ...mappedMutations,
+      ...mappedActions,
       value: false,
       myRange: [1, 5],
+      beers: new Array<any>(),
     };
   },
   mounted() {
     console.log(this.getRange());
     this.value = this.isEven();
     this.myRange = this.getRange();
+    this.fetchBeers().then((beers) => {
+      this.beers = beers;
+    });
   },
   methods: {
-    ...mappedActions,
     handleChange(value: Array<number>) {
       this.myRange = value;
       console.log('Container handlechange: ' + value);

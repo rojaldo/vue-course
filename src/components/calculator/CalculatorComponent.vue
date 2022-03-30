@@ -25,6 +25,21 @@ export default Vue.extend({
 
     };
   },
+  props: {
+    propsDisplay: {
+      type: String,
+    },
+    calculatorData: {
+      type: Object,
+    },
+  },
+  watch: {
+
+    calculatorData(value: Calculator) {
+      this.calculatorModel.setData(value);
+      this.display = this.calculatorModel.display;
+    },
+  },
   methods: {
     handleClick(value: string | number) {
       // boolean to string
@@ -33,7 +48,12 @@ export default Vue.extend({
       } else if (typeof value === "number") {
         this.display = this.calculatorModel.handleNumber(value);
       }
+      this.$emit("display-changed", this.display);
+
     },
+  },
+  beforeDestroy() {
+    this.$emit("model-changed", this.calculatorModel.getData());
   },
 });
 </script>

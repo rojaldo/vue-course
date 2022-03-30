@@ -27,6 +27,9 @@ export default Vue.extend({
     myRange: {
       type: Array,
     },
+    propsBeers: {
+      type: Array,
+    },
   },
   computed: {
     beersInRange(): Array<Beer> {
@@ -37,21 +40,20 @@ export default Vue.extend({
         .sort((a, b) => a.abv - b.abv);
     },
   },
+  watch: {
+    propsBeers(value: Array<Beer>) {
+      this.beers = [];
+      for (const jsonBeer of value) {
+        this.beers.push(new Beer(jsonBeer));
+      }
+    }
+  },
   created() {
-    this.getBeers();
     console.log('Props myRange: ' + this.$props.myRange);
     this.range = this.$props.myRange;
   },
   methods: {
-    getBeers() {
-      fetch("https://api.punkapi.com/v2/beers")
-        .then((response) => response.json())
-        .then((data) => {
-          for (const json of data) {
-            this.beers.push(new Beer(json));
-          }
-        });
-    },
+
     onRangeChange(value: Array<number>) {
       this.range = value;
       this.$emit("range-changed", value);
