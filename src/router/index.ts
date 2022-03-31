@@ -27,7 +27,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/apod',
         name: 'apod',
-        component: () => import(/* webpackChunkName: "about" */ '../components/apod/ApodComponent.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../components/apod/ApodContainer.vue')
     },
     {
         path: "/error",

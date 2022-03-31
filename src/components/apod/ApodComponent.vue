@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <date-picker-apod @date-changed="dateChanged"></date-picker-apod>
-    <show-apod :apod="apod" :date="selectedDate"></show-apod>
+    <date-picker-apod @date-changed="dateChanged" :date="selectedDate"></date-picker-apod>
+    <show-apod :apod="apod" ></show-apod>
   </div>
 </template>
 
@@ -20,6 +20,21 @@ export default Vue.extend({
       apod: new Apod(),
       selectedDate: moment().format("YYYY-MM-DD"),
     };
+  },
+  props: {
+    propsDate: String,
+    propsApod: Object,
+  },
+  watch: {
+    propsDate(newDate: string) {
+      this.selectedDate = newDate;
+    },
+    propsApod(newApod: any) {
+      this.apod = newApod;
+    },
+    selectedDate(newDate: string) {
+      this.$emit("date-changed", newDate);
+    },
   },
   methods: {
 
@@ -40,9 +55,6 @@ export default Vue.extend({
         return "";
       }
     },
-  },
-  mounted() {
-    // this.getApod();
   },
 });
 </script>

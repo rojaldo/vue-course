@@ -20,6 +20,14 @@
                 selectedDate: moment().format('YYYY-MM-DD'),
             }
         },
+        props: {
+            date: String,
+        },
+        watch: {
+            date(newDate: string) {
+                this.selectedDate = newDate;
+            },
+        },
         methods: {
             dateChanged(event: any) {
                 this.$emit('date-changed', event)
